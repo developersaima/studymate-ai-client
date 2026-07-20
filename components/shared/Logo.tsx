@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { GraduationCap } from "lucide-react";
-
+import { FaGraduationCap } from "react-icons/fa";
 export default function Logo() {
   return (
     <Link
@@ -8,8 +7,7 @@ export default function Logo() {
       className="flex items-center gap-2"
     >
       <div className="bg-blue-600 p-2 rounded-xl text-white">
-        <GraduationCap size={22} />
-      </div>
+<FaGraduationCap size={22} />      </div>
 
       <div>
         <h2 className="font-bold text-xl">

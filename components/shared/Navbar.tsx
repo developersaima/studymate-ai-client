@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, Sparkles } from "lucide-react";
+import { FaBars, FaMagic } from "react-icons/fa";
 import { motion } from "framer-motion";
 
 import {
@@ -190,8 +190,7 @@ export default function Navbar() {
               "
             >
 
-              <Sparkles size={16}/>
-
+           <FaMagic size={16} />
               Get Started
 
             </Link>
@@ -224,8 +223,7 @@ export default function Navbar() {
                 "
               >
 
-                <Menu size={22}/>
-
+          <FaBars size={22}/>
               </SheetTrigger>
 
 
