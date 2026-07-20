@@ -1,10 +1,10 @@
 import Container from "@/components/shared/Container";
-import StudyGrid from "@/components/explore/StudyGrid";
+import ExploreClient from "@/components/explore/ExploreClient";
 
 
 export default function ExplorePage(){
 
-return (
+return(
 
 <Container>
 
@@ -15,24 +15,13 @@ return (
 text-4xl
 font-bold
 ">
-Explore AI Study Plans
+
+Explore Study Plans
+
 </h1>
 
 
-<p className="
-mt-3
-text-gray-600
-">
-Find personalized learning roadmaps created with AI.
-</p>
-
-
-<div className="mt-10">
-
-<StudyGrid/>
-
-</div>
-
+<ExploreClient/>
 
 </div>
 
