@@ -4,7 +4,10 @@ import "./globals.css";
 import Providers from "@/providers/Providers";
 import Navbar from "@/components/shared/Navbar";
 import Footer from "@/components/shared/Footer";
+import { Geist } from "next/font/google";
+import { cn } from "@/lib/utils";
 
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 export const metadata: Metadata = {
   title: "StudyMate AI",
@@ -20,7 +23,7 @@ export default function RootLayout({
 
   return (
 
-    <html lang="en">
+    <html lang="en" className={cn("font-sans", geist.variable)}>
 
       <body>
 
