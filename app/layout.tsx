@@ -2,12 +2,20 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 import Providers from "@/providers/Providers";
+import QueryProvider from "@/providers/ReactQueryProvider";
+
 import Navbar from "@/components/shared/Navbar";
 import Footer from "@/components/shared/Footer";
+
 import { Geist } from "next/font/google";
 import { cn } from "@/lib/utils";
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+
+const geist = Geist({
+  subsets: ["latin"],
+  variable: "--font-sans",
+});
+
 
 export const metadata: Metadata = {
   title: "StudyMate AI",
@@ -21,25 +29,44 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
 
-  return (
 
-    <html lang="en" className={cn("font-sans", geist.variable)}>
+return (
 
-      <body>
+<html 
+lang="en" 
+className={cn("font-sans", geist.variable)}
+>
 
-        <Providers>
 
-          <Navbar />
+<body>
 
-          {children}
 
-          <Footer />
+<Providers>
 
-        </Providers>
 
-      </body>
+<QueryProvider>
 
-    </html>
 
-  );
+<Navbar />
+
+
+{children}
+
+
+<Footer />
+
+
+</QueryProvider>
+
+
+</Providers>
+
+
+</body>
+
+
+</html>
+
+);
+
 }
