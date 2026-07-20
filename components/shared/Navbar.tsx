@@ -36,6 +36,15 @@ const navLinks = [
     name: "Contact",
     href: "/contact",
   },
+  {
+ name:"Add Plan",
+ href:"/items/add"
+},
+
+{
+ name:"Manage",
+ href:"/items/manage"
+}
 ];
 
 

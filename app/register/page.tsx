@@ -1,5 +1,5 @@
 import Container from "@/components/shared/Container";
-import AuthForm from "@/components/auth/AuthForm";
+import RegisterForm from "@/components/auth/RegisterForm";
 
 
 export default function RegisterPage(){
@@ -9,9 +9,9 @@ return (
 <Container>
 
 <div className="
-py-20
-max-w-md
 mx-auto
+max-w-md
+py-20
 ">
 
 
@@ -25,11 +25,23 @@ Create Account
 </h1>
 
 
+<p className="
+mt-3
+text-gray-600
+">
+
+Join StudyMate AI and start learning smarter.
+
+</p>
+
+
+
 <div className="mt-8">
 
-<AuthForm mode="register"/>
+<RegisterForm/>
 
 </div>
+
 
 
 </div>
