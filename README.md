@@ -1,36 +1,134 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎓 StudyMate AI Client
 
-## Getting Started
+The frontend web application for **StudyMate AI** — an AI-powered smart study planner. Built with **Next.js**, **React**, **TypeScript**, and **Tailwind CSS**, it lets students create, manage, and explore study plans, with AI-generated weekly roadmaps.
 
-First, run the development server:
+---
+
+## 🛠️ Tech Stack
+
+* **Framework:** [Next.js 16](https://nextjs.org/) (React 19)
+* **Language:** TypeScript
+* **Styling:** Tailwind CSS v4 + [Shadcn UI](https://ui.shadcn.com/)
+* **Animation:** Framer Motion
+* **Auth:** [Better Auth](https://www.better-auth.com/) (Google login + Email/Password) with MongoDB adapter
+* **Data Fetching:** TanStack Query + Axios
+* **Forms & Validation:** React Hook Form + Zod
+* **Charts:** Recharts
+* **Icons:** Lucide React, React Icons
+* **Notifications:** Sonner
+* **Theming:** next-themes (Dark Mode support)
+
+---
+
+## 📂 Project Structure
+
+```text
+.
+├── app/                # Next.js App Router pages
+├── components/
+│   ├── common/         # Shared reusable UI components
+│   ├── shared/
+│   └── home/           # Home page sections (Hero, Features, FAQ, etc.)
+├── auth/                # Better Auth configuration
+├── providers/           # React context / query providers
+├── hooks/                # Custom React hooks
+├── lib/                  # Utility functions, API clients
+├── data/                 # Static/mock data
+├── types/                # Shared TypeScript types
+├── .env.local            # Environment configuration (not committed)
+├── package.json
+└── README.md
+```
+
+---
+
+## 🚀 Getting Started
+
+### 1. Prerequisites
+
+Make sure you have installed:
+
+* [Node.js](https://nodejs.org/) (v18 or higher recommended)
+* The **StudyMate AI Server** running (see the server's README) — or its deployed URL
+* A MongoDB connection string (used by the Better Auth Mongo adapter)
+* Google OAuth credentials (for Google Login)
+
+### 2. Installation
+
+Clone the repository and install dependencies:
+
+```bash
+cd studymate-ai-client
+npm install
+```
+
+### 3. Environment Setup
+
+Create a `.env.local` file in the root directory:
+
+```env
+# Backend API
+NEXT_PUBLIC_API_URL=http://localhost:5000
+
+# Better Auth
+BETTER_AUTH_SECRET=your_better_auth_secret
+BETTER_AUTH_URL=http://localhost:3000
+
+# MongoDB (used by the Better Auth Mongo adapter)
+MONGODB_URI=your_mongodb_connection_string_here
+
+# Google OAuth
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+```
+
+---
+
+## 🏃 Running the App
+
+### Development Mode
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+App runs at [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Production Build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+```
 
-## Learn More
+### Start Production Server
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm start
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Lint
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm run lint
+```
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📄 Key Pages
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Route | Access | Description |
+| --- | --- | --- |
+| `/` | Public | Home — Hero, Features, Stats, Testimonials, FAQ, Newsletter |
+| `/explore` | Public | Browse public study plans, search & filter |
+| `/blog` | Public | Study tips & articles |
+| `/about` | Public | About the project |
+| `/contact` | Public | Contact form |
+| `/login`, `/register` | Public | Authentication (Email/Password + Google) |
+| `/add-plan` | Protected | Create a new study plan |
+| `/manage` | Protected | View, edit, and delete your own study plans |
+
+---
+
+## 📄 License
+
+This project is private and intended for internal use only.
