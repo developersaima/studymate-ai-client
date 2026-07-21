@@ -1,156 +1,83 @@
 import Container from "@/components/shared/Container";
-import { studyPlans } from "@/data/studyPlans";
 import Link from "next/link";
 
+type Props = {
+  params: Promise<{
+    id: string;
+  }>;
+};
 
-export default function DetailsPage({
-  params,
-}:{
-  params:{id:string}
-}){
+async function getPlan(id: string) {
+  const res = await fetch(`http://localhost:5000/api/plans/${id}`, {
+    cache: "no-store",
+  });
 
+  if (!res.ok) {
+    throw new Error("Failed to fetch study plan");
+  }
 
-const plan = studyPlans.find(
-(item)=>item.id === Number(params.id)
-);
-
-
-if(!plan){
-return (
-<div className="py-20 text-center">
-<h1 className="text-3xl font-bold">
-Not Found
-</h1>
-</div>
-)
+  return res.json();
 }
 
+export default async function StudyPlanDetails({ params }: Props) {
+  const { id } = await params;
 
+  const plan = await getPlan(id);
 
-return (
+  return (
+    <Container>
+      <div className="py-16 max-w-4xl mx-auto">
 
-<Container>
+        <Link
+          href="/explore"
+          className="text-blue-600 hover:underline"
+        >
+          ← Back to Explore
+        </Link>
 
-<div className="py-16">
+        <div className="mt-8 rounded-2xl border p-8 shadow-sm">
 
+          <h1 className="text-4xl font-bold">
+            {plan.title}
+          </h1>
 
-<img
-src={plan.image}
-alt={plan.title}
-className="
-h-[400px]
-w-full
-rounded-3xl
-object-cover
-"
-/>
+          <p className="mt-5 text-gray-600">
+            {plan.description}
+          </p>
 
+          <div className="mt-10 grid gap-6 md:grid-cols-3">
 
+            <div className="rounded-xl border p-5">
+              <p className="text-gray-500">Goal</p>
+              <h3 className="mt-2 font-semibold">{plan.goal}</h3>
+            </div>
 
-<div className="mt-10">
+            <div className="rounded-xl border p-5">
+              <p className="text-gray-500">Duration</p>
+              <h3 className="mt-2 font-semibold">{plan.duration}</h3>
+            </div>
 
+            <div className="rounded-xl border p-5">
+              <p className="text-gray-500">Created By</p>
+              <h3 className="mt-2 font-semibold">
+                {plan.userEmail}
+              </h3>
+            </div>
 
-<h1 className="
-text-4xl
-font-bold
-">
+          </div>
 
-{plan.title}
+          <div className="mt-10">
+            <h2 className="text-2xl font-bold">
+              Description
+            </h2>
 
-</h1>
+            <p className="mt-4 leading-8 text-gray-700">
+              {plan.description}
+            </p>
+          </div>
 
-
-<p className="
-mt-5
-text-gray-600
-text-lg
-">
-
-{plan.description}
-
-</p>
-
-
-
-<div className="
-mt-8
-grid
-gap-5
-md:grid-cols-3
-">
-
-
-<div className="rounded-xl border p-5">
-Category
-<h3 className="font-bold">
-{plan.category}
-</h3>
-</div>
-
-
-<div className="rounded-xl border p-5">
-Duration
-<h3 className="font-bold">
-{plan.duration}
-</h3>
-</div>
-
-
-<div className="rounded-xl border p-5">
-Rating
-<h3 className="font-bold">
-⭐ {plan.rating}
-</h3>
-</div>
-
-
-</div>
-
-
-
-<div className="mt-10">
-
-<h2 className="text-2xl font-bold">
-Overview
-</h2>
-
-
-<p className="mt-3 text-gray-600">
-This AI generated learning roadmap helps students
-build skills with personalized guidance and smart planning.
-</p>
-
-
-</div>
-
-
-
-<div className="mt-10">
-
-<Link
-href="/explore"
-className="
-rounded-xl
-bg-blue-600
-px-6
-py-3
-text-white
-"
->
-Back Explore
-</Link>
-
-</div>
-
-
-
-</div>
-
-
-</div>
-
-</Container>
-
-)
-
+        </div>
+      </div>
+    </Container>
+  );
 }
