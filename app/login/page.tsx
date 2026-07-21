@@ -4,9 +4,7 @@ import AuthForm from "@/components/auth/AuthForm";
 export default function LoginPage() {
   return (
     <Container>
-      <div
-        className="py-20 max-w-md mx-auto"
-      >
+      <div className="py-20 max-w-md mx-auto">
         <h1
           className="
 text-4xl
@@ -17,7 +15,7 @@ font-bold
         </h1>
 
         <div className="mt-8">
-          <AuthForm/>
+          <AuthForm />
         </div>
       </div>
     </Container>

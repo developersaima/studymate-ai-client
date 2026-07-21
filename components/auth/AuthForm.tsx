@@ -6,7 +6,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { toast } from "sonner";
 import { authClient } from "@/lib/auth-client";
-import { createAuthClient } from "better-auth/client";
 
 const loginSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -21,6 +20,7 @@ export default function LoginForm() {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
@@ -37,7 +37,6 @@ export default function LoginForm() {
       },
       {
         onSuccess: () => {
-          
           toast.dismiss();
           toast.success("Login successful!");
         },
@@ -50,7 +49,13 @@ export default function LoginForm() {
 
     setLoading(false);
   };
-  const authClient = createAuthClient();
+
+  const handleDemoLogin = () => {
+    setValue("email", "demo@studymate.com");
+    setValue("password", "demo@123");
+    handleSubmit(onSubmit)();
+  };
+
   const handleGoogleSignIn = async () => {
     await authClient.signIn.social({
       provider: "google",
@@ -89,6 +94,15 @@ export default function LoginForm() {
         className="w-full rounded-xl bg-blue-600 py-4 text-white font-semibold hover:bg-blue-700 transition disabled:opacity-50"
       >
         {loading ? "Logging in..." : "Login"}
+      </button>
+
+      <button
+        type="button"
+        disabled={loading}
+        onClick={handleDemoLogin}
+        className="w-full rounded-xl bg-emerald-600 py-4 text-white font-semibold hover:bg-emerald-700 transition disabled:opacity-50"
+      >
+        Demo User Login
       </button>
 
       <div className="relative my-4 text-center text-sm text-gray-500">OR</div>
