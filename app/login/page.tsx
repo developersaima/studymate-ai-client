@@ -5,11 +5,7 @@ export default function LoginPage() {
   return (
     <Container>
       <div
-        className="
-py-20
-max-w-md
-mx-auto
-"
+        className="py-20 max-w-md mx-auto"
       >
         <h1
           className="
