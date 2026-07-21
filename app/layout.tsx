@@ -11,6 +11,7 @@ import Footer from "@/components/shared/Footer";
 
 import { Geist } from "next/font/google";
 import { cn } from "@/lib/utils";
+import { Toaster } from "@/components/ui/sonner";
 
 
 const geist = Geist({
@@ -42,21 +43,17 @@ className={cn("font-sans", geist.variable)}
 
 <body>
 
-
 <Providers>
-
 
 <QueryProvider>
 
-
 <Navbar />
-
 
 {children}
 
 
 <Footer />
-
+<Toaster></Toaster>
 
 </QueryProvider>
 
