@@ -124,53 +124,55 @@ export default function Navbar() {
               );
             })}
 
-            {/* AI Features Dropdown */}
-            <DropdownMenu>
-              <DropdownMenuTrigger className="flex items-center gap-1.5 text-sm font-medium outline-none transition cursor-pointer">
-                <span
-                  className={`flex items-center gap-1.5 ${
-                    isAiActive
-                      ? "text-blue-600 font-semibold"
-                      : "text-gray-600 hover:text-blue-600"
-                  }`}
+            {/* AI Features Dropdown - Only visible when logged in */}
+            {session && (
+              <DropdownMenu>
+                <DropdownMenuTrigger className="flex items-center gap-1.5 text-sm font-medium outline-none transition cursor-pointer">
+                  <span
+                    className={`flex items-center gap-1.5 ${
+                      isAiActive
+                        ? "text-blue-600 font-semibold"
+                        : "text-gray-600 hover:text-blue-600"
+                    }`}
+                  >
+                    <FaMagic className="text-blue-600" size={14} />
+                    <span>AI Features</span>
+                    <FaChevronDown size={10} />
+                  </span>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent
+                  align="start"
+                  className="w-64 p-2 shadow-xl border-gray-100 rounded-xl bg-white z-50"
                 >
-                  <FaMagic className="text-blue-600" size={14} />
-                  <span>AI Features</span>
-                  <FaChevronDown size={10} />
-                </span>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent
-                align="start"
-                className="w-64 p-2 shadow-xl border-gray-100 rounded-xl bg-white z-50"
-              >
-                {aiNavLinks.map((aiItem) => {
-                  const Icon = aiItem.icon;
-                  return (
-                    <DropdownMenuItem
-                      key={aiItem.href}
-                      className="rounded-lg p-0 cursor-pointer focus:bg-gray-50"
-                    >
-                      <Link
-                        href={aiItem.href}
-                        className="flex items-start gap-3 w-full p-2.5 text-gray-700 hover:text-blue-600"
+                  {aiNavLinks.map((aiItem) => {
+                    const Icon = aiItem.icon;
+                    return (
+                      <DropdownMenuItem
+                        key={aiItem.href}
+                        className="rounded-lg p-0 cursor-pointer focus:bg-gray-50"
                       >
-                        <div className="mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-50 text-blue-600">
-                          <Icon size={16} />
-                        </div>
-                        <div>
-                          <div className="text-sm font-semibold">
-                            {aiItem.name}
+                        <Link
+                          href={aiItem.href}
+                          className="flex items-start gap-3 w-full p-2.5 text-gray-700 hover:text-blue-600"
+                        >
+                          <div className="mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-50 text-blue-600">
+                            <Icon size={16} />
                           </div>
-                          <div className="text-xs text-gray-500 line-clamp-1">
-                            {aiItem.description}
+                          <div>
+                            <div className="text-sm font-semibold">
+                              {aiItem.name}
+                            </div>
+                            <div className="text-xs text-gray-500 line-clamp-1">
+                              {aiItem.description}
+                            </div>
                           </div>
-                        </div>
-                      </Link>
-                    </DropdownMenuItem>
-                  );
-                })}
-              </DropdownMenuContent>
-            </DropdownMenu>
+                        </Link>
+                      </DropdownMenuItem>
+                    );
+                  })}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
           </nav>
 
           {/* User Auth Section */}
@@ -201,7 +203,6 @@ export default function Navbar() {
                   align="end"
                   className="w-60 p-2 shadow-xl border-gray-100 rounded-xl bg-white z-50"
                 >
-                  {/* Base UI standard: DropdownMenuLabel inside DropdownMenuGroup */}
                   <DropdownMenuGroup>
                     <DropdownMenuLabel className="p-2">
                       <div className="flex flex-col gap-0.5">
@@ -348,28 +349,31 @@ export default function Navbar() {
                     </Link>
                   ))}
 
-                  <div className="my-1 rounded-xl border bg-gray-50/50 p-3">
-                    <div className="mb-2 flex items-center gap-2 text-xs font-bold tracking-wider text-gray-400 uppercase">
-                      <FaMagic className="text-blue-600" />
-                      <span>AI Features</span>
+                  {/* Mobile AI Features section - Only visible when logged in */}
+                  {session && (
+                    <div className="my-1 rounded-xl border bg-gray-50/50 p-3">
+                      <div className="mb-2 flex items-center gap-2 text-xs font-bold tracking-wider text-gray-400 uppercase">
+                        <FaMagic className="text-blue-600" />
+                        <span>AI Features</span>
+                      </div>
+                      <div className="flex flex-col gap-3">
+                        {aiNavLinks.map((aiItem) => (
+                          <Link
+                            key={aiItem.href}
+                            href={aiItem.href}
+                            onClick={() => setIsOpen(false)}
+                            className={`text-sm font-medium transition ${
+                              pathname === aiItem.href
+                                ? "text-blue-600 font-semibold"
+                                : "text-gray-700 hover:text-blue-600"
+                            }`}
+                          >
+                            {aiItem.name}
+                          </Link>
+                        ))}
+                      </div>
                     </div>
-                    <div className="flex flex-col gap-3">
-                      {aiNavLinks.map((aiItem) => (
-                        <Link
-                          key={aiItem.href}
-                          href={aiItem.href}
-                          onClick={() => setIsOpen(false)}
-                          className={`text-sm font-medium transition ${
-                            pathname === aiItem.href
-                              ? "text-blue-600 font-semibold"
-                              : "text-gray-700 hover:text-blue-600"
-                          }`}
-                        >
-                          {aiItem.name}
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
+                  )}
 
                   {session && (
                     <div className="my-1 rounded-xl border bg-blue-50/30 p-3">
