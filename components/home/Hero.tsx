@@ -2,15 +2,28 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import Container from "@/components/shared/Container";
+import { authClient } from "@/lib/auth-client";
 
 export default function Hero() {
+  const router = useRouter();
+  const { data: session } = authClient.useSession();
+
+  // Handle "Generate New Plan" click conditionally based on auth
+  const handleGeneratePlan = () => {
+    if (session) {
+      router.push("/ai-plan");
+    } else {
+      router.push("/login");
+    }
+  };
+
   return (
     <section className="overflow-hidden bg-gradient-to-b from-blue-50 via-white to-slate-50">
       <Container>
         <div className="grid min-h-[85vh] items-center gap-12 py-16 lg:grid-cols-2">
-          {/* Left */}
-
+          {/* Left Section */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
             animate={{ opacity: 1, x: 0 }}
@@ -32,10 +45,10 @@ export default function Hero() {
 
             <div className="mt-10 flex flex-wrap gap-4">
               <Link
-                href="/register"
+                href={session ? "/ai-plan" : "/register"}
                 className="rounded-xl bg-blue-600 px-7 py-3 font-semibold text-white transition hover:bg-blue-700"
               >
-                Get Started
+                {session ? "Dashboard" : "Get Started"}
               </Link>
 
               <Link
@@ -64,8 +77,7 @@ export default function Hero() {
             </div>
           </motion.div>
 
-          {/* Right */}
-
+          {/* Right Section */}
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
@@ -99,7 +111,10 @@ export default function Hero() {
                 </div>
               </div>
 
-              <button className="mt-8 w-full rounded-xl bg-blue-600 py-3 font-semibold text-white transition hover:bg-blue-700">
+              <button
+                onClick={handleGeneratePlan}
+                className="mt-8 w-full rounded-xl bg-blue-600 py-3 font-semibold text-white transition hover:bg-blue-700 cursor-pointer"
+              >
                 Generate New Plan
               </button>
             </div>
